@@ -1,11 +1,11 @@
-git init                     - создание нового репозитория
-git add .                    - добаление сразу всех изминений
-git commit -m "..."          - новый коммит с комментарием
-git status                   - посмотреть состояние файлов и папок
-git ls -la                   - просмотр всего содержимого репозитория
-git branch -M main           - создание новой ветки и присвоение ей статуса "основная"
-git remote add origin https://github.com/zhemgulis/Shpori_Python.git - соединение с GH
-git push -u origin main      - команда пуша локального дипозитория на удаленный
+# git init                     - создание нового репозитория
+# git add .                    - добаление сразу всех изминений
+# git commit -m "..."          - новый коммит с комментарием
+# git status                   - посмотреть состояние файлов и папок
+# git ls -la                   - просмотр всего содержимого репозитория
+# git branch -M main           - создание новой ветки и присвоение ей статуса "основная"
+# git remote add origin https://github.com/zhemgulis/Shpori_Python.git - соединение с GH
+# git push -u origin main      - команда пуша локального дипозитория на удаленный
 
 
 
