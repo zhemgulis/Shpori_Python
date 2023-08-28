@@ -235,10 +235,10 @@ Tablica_1.loc[(Tablica_1.Color == 'Green') | (Tablica_1.Price >= 10)] # выбе
 # regex (регулярные выражения)
   df. filter (regex = 'regex') ПРИМЕРЫ ФИЛЬТРОВ:
 # рассмотрим новую таблицу:
-	aph1  aph2	bph3  aph3
-1	aa	  bb	cc	  dd
-2	x	  y	    z	  k
-3	ax	  by	cz	  dk
+   aph1  aph2  bph3  aph3
+1  aa    bb    cc    dd
+2  x     y     z     k
+3  ax    by    cz    dk
   
 display(df.filter(regex ='1'))             # Фильтрация столбцов, которые содержат в названии "1"
 display(df.filter(regex ='3$'))            # Фильтрация столбцов, которые заканчиваются на "h3"
@@ -406,7 +406,7 @@ df_transformed = (df.melt(id_vars=['date'])
                   .rename(columns={'variable': 'var', 'value': 'val'})
                   .query('val >= 200')) # данную последнюю часть кода можно убрать и тогда получим все 8 значений полностью.
 # Получим:
-       date	    var	 val
+    date	    var	 val
 2	2021-01-02	 A	 200
 3	2021-01-02	 A	 250
 5	2021-01-01	 B	 210
