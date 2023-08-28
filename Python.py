@@ -634,7 +634,7 @@ PC          47265
 # Сгруппируем данные по дате и устройству:
 dau = data.pivot_table(index = 'date', columns = 'device', values = 'user_id', aggfunc = 'nunique')
 # Получим:
-device	Android	Mac	PC	iPhone
+device	      Android	Mac	PC	iPhone
   date				
 2021-02-01	472	303	312	640
 2021-02-02	549	325	328	697
