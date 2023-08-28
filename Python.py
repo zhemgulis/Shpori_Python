@@ -219,12 +219,12 @@ print(youtube_channels.iloc[2:9, 0:3]) # тоже самое но через с�
 # DataFrame ВЫВОД строк ПО УСЛОВИЮ
 # рассмотрим новую таблицу:
 	Color	Shape	    Price
-0	Green	Rectangle	10
-1	Green	Rectangle	15
+0	Green	Rectangle   10
+1	Green	Rectangle   15
 2	Green	Square	    5
 4	Blue	Square	    10
-5	Red	    Square	    15
-6	Red	    Square	    15
+5	Red	Square	    15
+6	Red	Square	    15
 
 print(Tablica_1.loc[Tablica_1.Color == 'Green']) # выберем только строки с Green
 print(Tablica_1.loc[Tablica_1.Price >= 10]) # выберем только строки где цена >= 10
@@ -235,10 +235,10 @@ Tablica_1.loc[(Tablica_1.Color == 'Green') | (Tablica_1.Price >= 10)] # выбе
 # regex (регулярные выражения)
   df. filter (regex = 'regex') ПРИМЕРЫ ФИЛЬТРОВ:
 # рассмотрим новую таблицу:
-	aph1  aph2	bph3  aph3
-1	aa	  bb	cc	  dd
-2	x	  y	    z	  k
-3	ax	  by	cz	  dk
+	aph1  aph2  bph3  aph3
+1	aa    bb    cc	  dd
+2	x     y	    z	  k
+3	ax    by    cz	  dk
   
 display(df.filter(regex ='1'))             # Фильтрация столбцов, которые содержат в названии "1"
 display(df.filter(regex ='3$'))            # Фильтрация столбцов, которые заканчиваются на "h3"
@@ -299,12 +299,12 @@ heights.head()
 youtube_channels = pd.read_excel('lesson02_wiki_top_youtube_channels.xlsx', sheet_name = 'data')
 youtube_channels.head(5)
 # Получаем:
-    name	                    subscribers_mln	 language	category	    in_russian	 like_to_view_ratio
-0	T-Series	                171.0	         Hindi	    Music	        False	     0.430178
-1	PewDiePie	                109.0	         English	Entertainment   False	     0.444065
-2	Cocomelon - Nursery Rhymes	104.0	         English	Education	    False	     0.573531
-3	SET India	                94.0	         Hindi	    Entertainment	False	     0.426803
-4	Kids Diana Show	            73.0	         English	Entertainment	False	     0.410649
+      name	           subscribers_mln  language      category   in_russian   like_to_view_ratio
+0   T-Series	                171.0	     Hindi	Music	        False	     0.430178
+1   PewDiePie	                109.0	     English	Entertainment   False	     0.444065
+2   Cocomelon - Nursery Rhymes	104.0	     English	Education	False	     0.573531
+3   SET India	                94.0	     Hindi	Entertainment	False	     0.426803
+4   Kids Diana Show	        73.0	     English	Entertainment	False	     0.410649
 
 # DataFrame СОХРАНЕНИЕ файлов:
 # Для сохранения датафрейма используем функцию: .to_csv или .to_excel
