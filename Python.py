@@ -252,7 +252,6 @@ Tablica_1.loc[(Tablica_1.Color == 'Green') | (Tablica_1.Price >= 10)] # выбе
 # regex (регулярные выражения)
   df. filter (regex = 'regex') ПРИМЕРЫ ФИЛЬТРОВ:
 # рассмотрим новую таблицу:
-<<<<<<< HEAD
    aph1  aph2  bph3  aph3
 1  aa    bb    cc    dd
 2  x     y     z     k
@@ -316,12 +315,12 @@ heights.head()
 youtube_channels = pd.read_excel('lesson02_wiki_top_youtube_channels.xlsx', sheet_name = 'data')
 youtube_channels.head(5)
 # Получаем:
-      name	           subscribers_mln  language      category   in_russian   like_to_view_ratio
-0   T-Series	                171.0	     Hindi	Music	        False	     0.430178
-1   PewDiePie	                109.0	     English	Entertainment   False	     0.444065
-2   Cocomelon - Nursery Rhymes	104.0	     English	Education	False	     0.573531
-3   SET India	                94.0	     Hindi	Entertainment	False	     0.426803
-4   Kids Diana Show	        73.0	     English	Entertainment	False	     0.410649
+      name             subscribers_mln language    category  in_russian  like_to_view_ratio
+0   T-Series                    171.0   Hindi    Music          False     0.430178
+1   PewDiePie                   109.0   English  Entertainment  False     0.444065
+2   Cocomelon - Nursery Rhymes  104.0   English  Education      False     0.573531
+3   SET India                   94.0    Hindi    Entertainment  False     0.426803
+4   Kids Diana Show             73.0    English  Entertainment  False     0.410649
 
 # DataFrame СОХРАНЕНИЕ файлов:
 # Для сохранения датафрейма используем функцию: .to_csv или .to_excel
@@ -423,7 +422,6 @@ df_transformed = (df.melt(id_vars=['date'])
                   .rename(columns={'variable': 'var', 'value': 'val'})
                   .query('val >= 200')) # данную последнюю часть кода можно убрать и тогда получим все 8 значений полностью.
 # Получим:
-<<<<<<< HEAD
     date        var  val
 2   2021-01-02   A   200
 3   2021-01-02   A   250
@@ -529,7 +527,7 @@ user_activity['date_month'] = user_activity['date'].dt.to_period('M')
 3  b3b0c361708b69a9  PC       2021-02-01  2021-02-01  2021-02
 4  48ddcd54a6844b70  Mac      2021-02-01  2021-02-01  2021-02
 
-# ГРУППИРОВКА ДАННЫХ
+# DataFrame ГРУППИРОВКА ДАННЫХ
 # Теперь когда мы добавили необходимые столбцы - можно по ним группировать данные:
   - при помощи функции 'groupby' группируем по столбцу 'date_only'
   - '.agg' агрегируем данные в столбце 'user_id' при помощи функции 'nunique',
@@ -557,7 +555,7 @@ date
 2021-02-03	1994
 ...
 
-# ГРУППИРОВКА сразу ПО НЕСКОЛЬКИМ ФУНКЦИЯМ например nunique и count:
+# DataFrame ГРУППИРОВКА сразу ПО НЕСКОЛЬКИМ ФУНКЦИЯМ например nunique и count:
 # - nunique кол-во уникальных пользователей на дату и count посчитать общее кол-во на дату
 # - ['nunique', 'count'] скобки указывают, на список функций применяемых к 'user_id'
 # - сгруппируем в этот раз по столбцу date_month и списком дадим название столбцам - ['MAU', 'Число посещений']
@@ -572,7 +570,7 @@ date_month
 2021-04	41995	67397
 ...
 
-# ИЗМЕНЕНИЕ НАИМЕНОВАНИЯ одной колонки во фрейме,
+# DataFrame ИЗМЕНЕНИЕ НАИМЕНОВАНИЯ одной колонки во фрейме,
 # inplace=True - сразу сохраняет изменения во фрейме mau.
 mau.rename(columns={'Число посещений': 'Кол-во посещений'}, inplace=True)
 mau
@@ -637,14 +635,131 @@ PC          47265
 # -  значения для группировки берем из колонки user_id: values = 'user_id'
 # -  агрегирующая функция для уникальных значений: aggfunc = 'nunique'
 
-# Сгруппируем данные по дате и устройству:
+# DataFrame СГРУППИРУЕМ ДАННЫЕ по дате и устройству:
 dau = data.pivot_table(index = 'date', columns = 'device', values = 'user_id', aggfunc = 'nunique')
 # Получим:
-device	      Android	Mac	PC	iPhone
+device    Android  Mac  PC  iPhone
   date				
-2021-02-01	472	303	312	640
-2021-02-02	549	325	328	697
-2021-02-03	593	349	336	716
+2021-02-01	472    303  312  640
+2021-02-02	549    325  328  697
+2021-02-03	593    349  336  716
 ...
 
+# DataFrame МОДИФИКАЦИЯ ДАННЫХ
+# Операции над столбцами - самый быстрый вариант работы с данными в pandas
+
+# DataFrame 4 ОСНОВНЫХ МЕТОДА МОДИФИКАЦИИ данных в фреймах
+# Вот они в порядке скорости выполнения:
+# -  Операции над столбцами;
+# -  Работа с функцией apply;
+# -  Прямая модификация даннах в ячейках с помощью .loc.
+
+# Скопируем DAU в новую переменную:
+test_dau = dau.copy()
+# DataFrame СОЗДАНИЕ НОВОГО столбца:
+dau['total_dau'] = 1
+# DataFrame СЛОЖЕНИЕ столбцов (вариант 1):
+dau['total_dau'] = dau['Android'] + dau['Mac'] + dau['PC'] + dau['iPhone']
+# Получим:
+device    Android  Mac  PC  iPhone  total_dau
+  date				
+2021-02-01	472    303  312  640    1727
+2021-02-02	549    325  328  697    1899
+2021-02-03	593    349  336  716    1994
+...
+
+import numpy as np
+test_02 = dau_channel
+numeric_cols = test_02.select_dtypes(include=[np.number]) # Выберает только числовые столбцы перед суммированием
+test_02['Total'] = numeric_cols.sum(axis=1)
+
+
+# DataFrame СЛОЖЕНИЕ столбцов (вариант 2):
+# сложение по оси Х: sum(axis = 1)
+# сложение по оси Y: sum(axis = 0)
+dau['total_dau'] = 0
+dau['total_dau'] = dau.sum(axis = 1)
+# или так (не будет ошибки скрасным фоном):
+import numpy as np
+numeric_cols = dau.select_dtypes(include=[np.number]) # ВЫБЕРАЕТ ТОЛЬКО ЧИСЛОВЫЕ СТОЛБЦЫ перед суммированием
+dau['total_dau'] = numeric_cols.sum(axis=1)
+
+# DataFrame ДЕЛЕНИЕ столбцов:
+dau['perc_pc'] = dau['PC'] / dau['total_dau']
+
+# DataFrame ФУНКЦИЯ apply
+# Apply - это второй по скорости метод массовой модификации данных в фреймах.
+
+# ПРИМЕР 1
+# Предположим, мы хотим посчитать сколько процентов от общего DAU составляют все 
+# платформы кроме PC. Каким образом мы можем это посчитать? Мы можем задать функцию:
+def get_perc_except_pc(cell_value):
+    return 1 - cell_value
+    
+dau['perc_except_pc'] = dau['perc_pc'].apply(get_perc_except_pc)
+
+# cell_value - значение столбца
+# Что здесь происходит? По сути дела, apply просто берет последовательно КАЖДУЮ ЯЧЕЙКУ В СТОЛБЦЕ perc_pc,
+# применяетк ней функцию get_perc_except_pc (которая из 1 вычетает cell_value - значение ячейки perc_pc)
+# и сохраняет результат в столбец perc_except_pc.
+
+# ПРИМЕР 2
+# Если вы хотите вычислить значение столбца, используя значения НЕСКОЛЬКИХ СТОЛБЦОВ,
+# то apply нужно применять по-другому:
+
+# Допустим, вы хотете вычислить, какой процент от общего DAU составляет сумма DAU для платформ Android и Mac.
+# Для этого напишем функцию:
+def get_perc_android_mac(row_values):
+    return (row_values['Android'] + row_values['Mac']) / row_values['total_dau']
+
+dau['perc_android_mac'] = dau.apply(get_perc_android_mac, axis = 1)
+
+# row values - значения в строках
+# Обратите внимание на то, как применяется команда apply в этом случае:
+
+#    apply применяется не к конкретному столбцу, а к ФРЕЙМУ ЦЕЛИКОМ: dau.apply(...)
+#    При вызове apply указывается axis = 1. Это означает, что внуть функции get_perc_android_mac
+#    будет переданы все ЗНАЧЕНИЯ ТЕКУЩЕГО РЯДА.
+
+# (axis = 0 - будет указывать на значения в столбце)
+
+# DataFrame ПРЯМАЯ МОДИФИКАЦИЯ данных в ЯЧЕЙКАХ с помощью .loc
+
+# Функция loc меняет (перезаписывает) значения в самой таблице!!!
+
+# Изменим значения ячеек в строке: '2021-02-04' для столбцов 'iPhone' и 'Mac' на 0:
+dau.loc['2021-02-04', ['iPhone', 'Mac']] = 0
+
+# Можем сделать ИЗМЕНЕНИЯ сразу МНОГИХ строк ПО УСЛОВИЮ, например:
+# -  для всех строк с индексом (здесь индекс = дата) равным или меньшим'2021-02-03':
+dau.loc[dau.index <= '2021-02-03'] = -1
+
+# НЕ ПУТАТЬ с функцией query которая только показывает, но не изменяет значение ячеек:
+dau.query("date <= '2021-02-03'")
+
+# Давайте ИСПОЛЬЗУЕМ навыки МОДИФИКАЦИИ ДАННЫХ в фреймах для того, чтобы посчитать
+# какой % от DAU составляют пользователи мобильных устройств (это Android + iPhone):
+dau_perc = dau.copy() # создадим копию фрейма dau
+dau_perc['Total'] =  dau_perc.sum(axis = 1) # суммируем данные в строках dau
+mobile_types = ['Android', 'iPhone'] # создаем список моб. устройств
+dau_perc['Mobile'] = dau_perc[mobile_types].sum(axis = 1) # сумма моб.уст-тв
+dau_perc['Others'] = dau_perc['Total'] - dau_perc['Mobile'] # считаем разницу
+dau_perc.head()
+# Получим:
+device   Android Mac  PC iPhone Total Mobile Others
+date							
+2021-02-01  472  303  312  640  1727   1112   615
+2021-02-02  549  325  328  697  1899   1246   653
+2021-02-03  593  349  336  716  1994   1309   685
+...
+# Переводим значения интересующих столбцов в проценты:
+dau_perc['Mobile'] = dau_perc['Mobile'] / dau_perc['Total']
+dau_perc['Others'] = dau_perc['Others'] / dau_perc['Total']
+# Получим:
+device  Android  Mac  PC iPhone Total  Mobile    Others
+date							
+2021-02-01  472  303  312  640  1727  0.643891  0.356109
+2021-02-02  549  325  328  697  1899  0.656135  0.343865
+2021-02-03  593  349  336  716  1994  0.656469  0.343531
+...
 
